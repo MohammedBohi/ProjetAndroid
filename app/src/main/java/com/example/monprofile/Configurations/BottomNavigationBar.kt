@@ -1,6 +1,8 @@
 package com.example.monprofile
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.HomeMax
 import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.filled.Tv
 import androidx.compose.material.icons.filled.Person
@@ -34,6 +36,12 @@ fun BottomNavigationBar(navController: NavController) {
             label = { Text("Acteurs", color = Color(0xFFFFD700)) },
             selected = false,
             onClick = { navController.navigate("actors") }
+        )
+        NavigationBarItem(
+            icon = { Icon(Icons.Filled.HomeMax, contentDescription = "Exam", tint = Color(0xFFFFD700)) },
+            label = { Text("Vide", color = Color(0xFFFFD700)) },
+            selected = false,
+            onClick = { navController.navigate("exam") } // Naviguer vers "empty"
         )
     }
 }

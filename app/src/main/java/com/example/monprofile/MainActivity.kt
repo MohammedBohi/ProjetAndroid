@@ -36,6 +36,7 @@ fun AppNavHost(navController: NavHostController, viewModel: ConfigViewModel) {
         composable("films") { Films(navController, viewModel) }
         composable("series") { Series(navController, viewModel) }
         composable("actors") { Acteurs(navController, viewModel) }
+        composable("exam") { ExamDestination() } // Nouvelle destination ajoutée
 
         // Écrans de détails pour les films, séries et acteurs
         composable("filmDetails/{filmId}") { backStackEntry ->
