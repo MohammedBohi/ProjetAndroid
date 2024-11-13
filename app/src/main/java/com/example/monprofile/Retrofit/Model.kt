@@ -249,4 +249,19 @@ class Season(
     val season_number: Int,
     val vote_average: Double
 )
+data class TmdbCollectionResult(
+    val page: Int, // Numéro de la page
+    val results: List<MovieCollection>, // Liste des collections
+    val total_pages: Int, // Total des pages
+    val total_results: Int // Total des résultats
+)
+
+data class MovieCollection(
+    val id: Int, // ID unique de la collection
+    val name: String, // Nom de la collection
+    val overview: String?, // Description
+    val poster_path: String?, // Chemin de l'affiche
+    val backdrop_path: String? // Chemin de l'image de fond
+)
+
 
