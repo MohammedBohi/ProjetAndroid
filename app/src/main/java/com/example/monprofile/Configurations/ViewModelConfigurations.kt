@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.monprofile.Retrofit.ApiTMdB
 import com.example.monprofile.Retrofit.Filmographie
+import com.example.monprofile.Retrofit.Keyword
 import com.example.monprofile.Retrofit.MovieCollection
 import com.example.monprofile.Retrofit.MovieDetail
 import com.example.monprofile.Retrofit.SerieDetail
@@ -96,15 +97,38 @@ class ConfigViewModel: ViewModel() {
             actors.value = api.searchpersons(api_key, searchText).results
         }
     }
-    fun fetchHorrorCollections() {
+    fun searchKeywords(query: String, onResult: (List<Keyword>) -> Unit) {
         viewModelScope.launch {
             try {
-                // Appel à l'API pour chercher les collections avec "horreur"
-                val response = api.searchCollections(api_key, searchText = "horreur")
-                // Mise à jour de l'état avec les résultats
-                collections.value = response.results
+                val response = api.searchKeywords(api_key, query)
+                onResult(response.results) // Retourne la liste des mots-clés
             } catch (e: Exception) {
-                e.printStackTrace() // Log ou gestion de l'erreur
+                e.printStackTrace()
+                onResult(emptyList()) // Retourne une liste vide en cas d'erreur
+            }
+        }
+    }
+    fun searchHorrorKeyword(onResult: (Int?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val response = api.searchKeywords(api_key, "horreur")
+                val horrorKeyword = response.results.find { it.name.equals("horreur", ignoreCase = true) }
+                onResult(horrorKeyword?.id) // Retourne l'ID du mot-clé "horreur"
+            } catch (e: Exception) {
+                e.printStackTrace()
+                onResult(null) // Retourne null en cas d'erreur
+            }
+        }
+    }
+
+
+    fun getMoviesByKeyword(keywordId: Int) {
+        viewModelScope.launch {
+            try {
+                val response = api.discoverMoviesByKeyword(api_key, keywordId.toString())
+                movies.value = response.results // Met à jour les films trouvés
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

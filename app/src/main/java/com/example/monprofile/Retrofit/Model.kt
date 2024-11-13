@@ -249,12 +249,16 @@ class Season(
     val season_number: Int,
     val vote_average: Double
 )
-data class TmdbCollectionResult(
-    val page: Int, // Numéro de la page
-    val results: List<MovieCollection>, // Liste des collections
-    val total_pages: Int, // Total des pages
-    val total_results: Int // Total des résultats
+data class KeywordResponse(
+    val page: Int,
+    val results: List<Keyword>
 )
+
+data class Keyword(
+    val id: Int,
+    val name: String
+)
+
 
 data class MovieCollection(
     val id: Int, // ID unique de la collection

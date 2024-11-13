@@ -61,12 +61,19 @@ interface ApiTMdB {
         @Query("language") language: String = "fr"
     ): TmdbActor
 
-    @GET("search/collection")
-    suspend fun searchCollections(
+    @GET("search/keyword")
+    suspend fun searchKeywords(
         @Query("api_key") apiKey: String,
-        @Query("query") searchText: String,
+        @Query("query") query: String
+    ): KeywordResponse
+
+    @GET("discover/movie")
+    suspend fun discoverMoviesByKeyword(
+        @Query("api_key") apiKey: String,
+        @Query("with_keywords") keywordId: String,
         @Query("language") language: String = "fr"
-    ): TmdbCollectionResult
+    ): TmdbMovieResult
+
 
 
 

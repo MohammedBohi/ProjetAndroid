@@ -39,7 +39,7 @@ fun BottomNavigationBar(navController: NavController) {
         )
         NavigationBarItem(
             icon = { Icon(Icons.Filled.HomeMax, contentDescription = "Exam", tint = Color(0xFFFFD700)) },
-            label = { Text("Vide", color = Color(0xFFFFD700)) },
+            label = { Text("horror", color = Color(0xFFFFD700)) },
             selected = false,
             onClick = { navController.navigate("exam") } // Naviguer vers "empty"
         )
