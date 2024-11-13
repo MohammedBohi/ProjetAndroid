@@ -61,9 +61,17 @@ interface ApiTMdB {
         @Query("language") language: String = "fr"
     ): TmdbActor
 
+    @GET("search/collection")
     suspend fun searchCollections(
-        @Query("api_key") api_key: String,
+        @Query("api_key") apiKey: String,
         @Query("query") searchText: String,
         @Query("language") language: String = "fr"
     ): TmdbCollectionResult
+
+
+
+
+
+
+
 }

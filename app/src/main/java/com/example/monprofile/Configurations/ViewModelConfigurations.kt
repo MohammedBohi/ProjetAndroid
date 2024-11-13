@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.monprofile.Retrofit.ApiTMdB
 import com.example.monprofile.Retrofit.Filmographie
+import com.example.monprofile.Retrofit.MovieCollection
 import com.example.monprofile.Retrofit.MovieDetail
 import com.example.monprofile.Retrofit.SerieDetail
 import com.example.monprofile.Retrofit.TmdbActor
@@ -26,9 +27,9 @@ class ConfigViewModel: ViewModel() {
 
 
     val movieToLook = MutableStateFlow<TmdbMovie>(TmdbMovie())
+    val collections = MutableStateFlow<List<MovieCollection>>(listOf())
 
     val serieToLook = MutableStateFlow<TmdbSerie>(TmdbSerie())
-
     val actorToLook = MutableStateFlow<TmdbActor>(TmdbActor())
 
     val filmographieToLook = MutableStateFlow<Filmographie>(Filmographie())
@@ -93,6 +94,18 @@ class ConfigViewModel: ViewModel() {
     fun searchActor(searchText : String) {
         viewModelScope.launch {
             actors.value = api.searchpersons(api_key, searchText).results
+        }
+    }
+    fun fetchHorrorCollections() {
+        viewModelScope.launch {
+            try {
+                // Appel à l'API pour chercher les collections avec "horreur"
+                val response = api.searchCollections(api_key, searchText = "horreur")
+                // Mise à jour de l'état avec les résultats
+                collections.value = response.results
+            } catch (e: Exception) {
+                e.printStackTrace() // Log ou gestion de l'erreur
+            }
         }
     }
 
